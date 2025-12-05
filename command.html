@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURE SHELL // CYBER COMMAND</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --term-bg: #0a0a0a;
+            --neon-green: #0f0;
+            --neon-blue: #0ff;
+            --neon-red: #f00;
+            --neon-amber: #ffb000;
+            --font-main: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 15px;
+            font-family: var(--font-main);
+            box-sizing: border-box;
+        }
+
+        /* CRT Scanline Effect Overlay */
+        body::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 10;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .terminal {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #333;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background-color: #111;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 10px;
+            font-size: 12px;
+            line-height: 1.4;
+            overflow-y: hidden; /* Auto-scroll handled by JS */
+            flex-grow: 1;
+            word-break: break-all;
+            white-space: pre-wrap;
+            opacity: 0.9;
+        }
+
+        /* Scanline animation bar */
+        .scan-bar {
+            width: 100%;
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            position: absolute;
+            z-index: 5;
+            animation: scan 6s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+
+        /* Themes */
+        .theme-green { color: var(--neon-green); border-color: var(--neon-green); box-shadow: 0 0 5px var(--neon-green); }
+        .theme-blue { color: var(--neon-blue); border-color: var(--neon-blue); box-shadow: 0 0 5px var(--neon-blue); }
+        .theme-red { color: var(--neon-red); border-color: var(--neon-red); box-shadow: 0 0 5px var(--neon-red); }
+        .theme-amber { color: var(--neon-amber); border-color: var(--neon-amber); box-shadow: 0 0 5px var(--neon-amber); }
+
+        .theme-green .header { background: #001a00; color: var(--neon-green); }
+        .theme-blue .header { background: #001a1a; color: var(--neon-blue); }
+        .theme-red .header { background: #1a0000; color: var(--neon-red); }
+        .theme-amber .header { background: #1a1100; color: var(--neon-amber); }
+
+        /* Flashing cursor */
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 12px;
+            background-color: currentColor;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { grid-template-columns: 1fr; grid-template-rows: repeat(3, 1fr); }
+            .terminal:nth-child(n+4) { display: none; } /* Hide some on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Terminal 1: Network Traffic (Green) -->
+    <div class="terminal theme-green">
+        <div class="header">
+            <span>NET_TRAFFIC_MONITOR</span>
+            <span>ETH0: ACTIVE</span>
+        </div>
+        <div class="content" id="term1"></div>
+        <div class="scan-bar"></div>
+    </div>
+
+    <!-- Terminal 2: Decryption (Blue) -->
+    <div class="terminal theme-blue">
+        <div class="header">
+            <span>DECRYPTION_CORE</span>
+            <span>AES-256</span>
+        </div>
+        <div class="content" id="term2"></div>
+    </div>
+
+    <!-- Terminal 3: Intrusion Detection (Red) -->
+    <div class="terminal theme-red">
+        <div class="header">
+            <span>IDS_LOGS</span>
+            <span>ALERT_LEVEL: HIGH</span>
+        </div>
+        <div class="content" id="term3"></div>
+    </div>
+
+    <!-- Terminal 4: Hex Dump (Amber) -->
+    <div class="terminal theme-amber">
+        <div class="header">
+            <span>MEMORY_DUMP</span>
+            <span>0x004F2A</span>
+        </div>
+        <div class="content" id="term4"></div>
+    </div>
+
+    <!-- Terminal 5: System Process (Green) -->
+    <div class="terminal theme-green">
+        <div class="header">
+            <span>ROOT_PROCESSES</span>
+            <span>PID: 4921</span>
+        </div>
+        <div class="content" id="term5"></div>
+    </div>
+
+    <!-- Terminal 6: Upload (Blue) -->
+    <div class="terminal theme-blue">
+        <div class="header">
+            <span>UPLINK_STATUS</span>
+            <span>SAT_LINK_04</span>
+        </div>
+        <div class="content" id="term6"></div>
+    </div>
+
+    <script>
+        // --- Data Generators ---
+
+        function getRandomIP() {
+            return `${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
+        }
+
+        function getHex() {
+            let hex = '';
+            for(let i=0; i<8; i++) {
+                hex += Math.floor(Math.random()*255).toString(16).padStart(2,'0').toUpperCase() + ' ';
+            }
+            return hex;
+        }
+
+        function getTimestamp() {
+            const now = new Date();
+            return now.toISOString().split('T')[1].slice(0, -1);
+        }
+
+        const verbs = ["Injecting", "Parsing", "Compiling", "Overriding", "Bypassing", "Encrypting", "Scanning", "Tracing", "Allocating"];
+        const nouns = ["Packets", "Mainframe", "Firewall", "Nodes", "Protocol", "Handshake", "Algorithm", "Buffer", "Stack", "Daemon"];
+        const status = ["[OK]", "[SUCCESS]", "[PENDING]", "[DONE]", "[AUTHORIZED]"];
+
+        // --- Terminal Logic ---
+
+        class CyberTerminal {
+            constructor(id, type, speed) {
+                this.element = document.getElementById(id);
+                this.type = type; // 'net', 'hex', 'log'
+                this.speed = speed;
+                this.maxLines = 30; // Prevent memory overflow
+                this.start();
+            }
+
+            addLine(text) {
+                const line = document.createElement('div');
+                line.textContent = text;
+                this.element.appendChild(line);
+                
+                // Auto scroll
+                this.element.scrollTop = this.element.scrollHeight;
+
+                // Cleanup old lines
+                if (this.element.childElementCount > this.maxLines) {
+                    this.element.removeChild(this.element.firstChild);
+                }
+            }
+
+            generateContent() {
+                if (this.type === 'net') {
+                    return `> ${getTimestamp()} REC packet FROM ${getRandomIP()} : ${Math.floor(Math.random()*5000)}ms`;
+                } 
+                else if (this.type === 'hex') {
+                    return `0x${Math.floor(Math.random()*1000000).toString(16).toUpperCase()}: ${getHex()} | ...`;
+                }
+                else if (this.type === 'crypto') {
+                    const pct = Math.floor(Math.random() * 100);
+                    return `> Decrypting block ${Math.floor(Math.random()*9999)}... [${'#'.repeat(Math.floor(pct/10))}${'-'.repeat(10 - Math.floor(pct/10))}] ${pct}%`;
+                }
+                else if (this.type === 'sys') {
+                     const verb = verbs[Math.floor(Math.random() * verbs.length)];
+                     const noun = nouns[Math.floor(Math.random() * nouns.length)];
+                     const stat = status[Math.floor(Math.random() * status.length)];
+                     return `${verb} ${noun}... ${stat}`;
+                }
+                else if (this.type === 'alert') {
+                    const errs = ["WARNING", "CRITICAL", "ERROR", "ACCESS DENIED"];
+                    const err = errs[Math.floor(Math.random() * errs.length)];
+                    return `[${err}] Unauthorized access attempt at sector ${Math.floor(Math.random()*99)}`;
+                }
+                return "Processing...";
+            }
+
+            start() {
+                // Initial burst
+                for(let i=0; i<10; i++) this.addLine(this.generateContent());
+
+                // Loop
+                setInterval(() => {
+                    this.addLine(this.generateContent());
+                }, this.speed);
+            }
+        }
+
+        // --- Initialize Terminals ---
+        
+        // Window 1: Fast network logs
+        new CyberTerminal('term1', 'net', 300);
+
+        // Window 2: Decryption progress
+        new CyberTerminal('term2', 'crypto', 600);
+
+        // Window 3: Slow alerts (Red)
+        new CyberTerminal('term3', 'alert', 1200);
+
+        // Window 4: Hex dump
+        new CyberTerminal('term4', 'hex', 100);
+
+        // Window 5: System Ops
+        new CyberTerminal('term5', 'sys', 800);
+
+        // Window 6: Uplink (Net/Sys mix)
+        new CyberTerminal('term6', 'net', 500);
+
+    </script>
+</body>
+</html>
