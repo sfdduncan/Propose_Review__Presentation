@@ -19,7 +19,7 @@
     text-align: center;
     font-size: 5px;
     line-height: 1.05;
-    color: #ccc;
+    color: #c80afd;
     margin-left: -4vw;
     margin-bottom: 4vh;
     margin-top: -2vh;
@@ -41,7 +41,7 @@
   .pillar {
     font-size: 3px;
     line-height: 1.05;
-    color: #f8f5f5;
+    color: #b809db;
     flex: 0 0 auto; /* do not stretch */
   }
 
@@ -55,7 +55,7 @@
   }
 
   a {
-    color: #fff;
+    color: #cf06e6;
     text-decoration: none;
     border-bottom: 1px dotted #666;
   }
@@ -73,10 +73,88 @@
       max-width: 100%;
     }
   }
+
+
+  #starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* IMPORTANT */
+  z-index: 0;
+  font-family: Consolas, "Courier New", monospace;
+
+}
+
+.star {
+  position: absolute;
+  color: #c7c2c2;
+  font-size: 4px;
+  opacity: 0.2;
+  transition: opacity 0.3s steps(1);
+}
+
+
+#link-preview {
+  position: fixed;
+  width: 420px;
+  height: 280px;
+  background: #c0c0c0;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 #000;
+  display: none;
+  z-index: 9999;
+  font-family: "MS Sans Serif", Tahoma, sans-serif;
+}
+
+/* TITLE BAR */
+.win98-titlebar {
+  background: linear-gradient(to right, #000080, #1084d0);
+  color: white;
+  padding: 4px 8px;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.win98-buttons {
+  font-family: monospace;
+  letter-spacing: 2px;
+}
+
+/* CONTENT AREA */
+.win98-content {
+  position: relative;
+  background: #fff;
+  height: calc(100% - 24px);
+  border-top: 2px solid #808080;
+}
+
+#preview-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* FALLBACK MESSAGE */
+#iframe-fallback {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  color: #000;
+  font-size: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
 </style>
 </head>
 
 <body>
+<div id="starfield"></div>
 
 
 <!-- THREE COLUMNS -->
@@ -1397,8 +1475,6 @@ This archive documents major hacktivist actions from 2005 to the present.
 Entries link to public reporting and documentation and are presented as
 historical reference rather than tactical models.
 
-  2005  » <a href="https://en.wikipedia.org/wiki/Protest_Warrior" target="_blank">Protest Warrior</a>
-
   2008  » <a href="https://en.wikipedia.org/wiki/Sarah_Palin_email_hack" target="_blank">Sarah Palin Email Hack</a>
 
   2010  » <a href="https://en.wikipedia.org/wiki/Operation_Payback" target="_blank">Operation Payback</a>
@@ -2665,6 +2741,117 @@ practices.
 </pre>
 
 </div>
+
+<!-- POPUP WINDOW PREVIEW -->
+
+
+<div id="link-preview">
+  <div class="win98-titlebar">
+    <span class="win98-title">preview.exe</span>
+    <span class="win98-buttons">_ □ ✕</span>
+  </div>
+  <div class="win98-content">
+    <iframe id="preview-iframe"></iframe>
+    <div id="iframe-fallback">
+      Preview unavailable.
+      <br>
+      Click link to open directly.
+    </div>
+  </div>
+</div>
+
+
+<script>
+(function () {
+  const STAR_COUNT = 100;
+  const CHARACTERS = ['+', '*', 'o'];
+  const starfield = document.getElementById('starfield');
+
+  function random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  for (let i = 0; i < STAR_COUNT; i++) {
+    const star = document.createElement('span');
+    star.className = 'star';
+    star.textContent = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
+
+    star.style.left = random(0, 100) + 'vw';
+    star.style.top = random(0, 100) + 'vh';
+    star.style.fontSize = random(10, 16) + 'px';
+
+    starfield.appendChild(star);
+
+    // Flicker loop
+    setInterval(() => {
+      star.style.opacity = Math.random() > 0.7 ? 0.6 : 0.15;
+    }, random(400, 2000));
+  }
+})();
+
+
+
+(function () {
+  const preview = document.getElementById('link-preview');
+  const iframe = document.getElementById('preview-iframe');
+  const fallback = document.getElementById('iframe-fallback');
+
+  let hoverTimeout;
+
+  function showPreview(e, url) {
+    hoverTimeout = setTimeout(() => {
+      iframe.src = url;
+      fallback.style.display = 'none';
+      preview.style.display = 'block';
+      positionPreview(e);
+    }, 400); // delay = intentional
+  }
+
+  function hidePreview() {
+    clearTimeout(hoverTimeout);
+    preview.style.display = 'none';
+    iframe.src = '';
+  }
+
+  function positionPreview(e) {
+    const padding = 20;
+    let x = e.clientX + padding;
+    let y = e.clientY + padding;
+
+    if (x + preview.offsetWidth > window.innerWidth) {
+      x = e.clientX - preview.offsetWidth - padding;
+    }
+
+    if (y + preview.offsetHeight > window.innerHeight) {
+      y = e.clientY - preview.offsetHeight - padding;
+    }
+
+    preview.style.left = x + 'px';
+    preview.style.top = y + 'px';
+  }
+
+  // Attach to all links
+  document.querySelectorAll('a[href]').forEach(link => {
+    link.addEventListener('mouseenter', e => {
+      showPreview(e, link.href);
+    });
+
+    link.addEventListener('mousemove', positionPreview);
+
+    link.addEventListener('mouseleave', hidePreview);
+  });
+
+  // iframe error handling
+  iframe.addEventListener('load', () => {
+    try {
+      iframe.contentDocument;
+    } catch (e) {
+      iframe.style.display = 'none';
+      fallback.style.display = 'block';
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
