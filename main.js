@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // GAME CONFIGURATION
 // ============================================
 const CONFIG = {
-    totalSections: 10,
+    totalSections: 13,
     playerSpeed: 4,
     sectionWidth: window.innerWidth,
     gameWorld: null,
@@ -168,7 +168,7 @@ function createGameSections() {
         section.className = `game-section section-${i + 1}`;
         section.dataset.section = i;
         
-        // Add video for section 2 - JUST CREATES IT, NO STYLING
+        // Add video for section 2
         if (i === 1) {
             const video = document.createElement('video');
             video.className = 'bg-video';
@@ -196,7 +196,7 @@ function startGameLoop() {
     function gameLoop() {
         updatePlayer();
         drawPlayer();
-        checkSection10Trigger();
+        checkSection13Trigger(); // FIXED: Changed from checkSection10Trigger
         requestAnimationFrame(gameLoop);
     }
     gameLoop();
@@ -258,7 +258,7 @@ function drawPlayer() {
 // ============================================
 // PLAYER MOVEMENT & SECTION TRANSITION
 // ============================================
-let section10PopupsActive = false;
+let section13PopupsActive = false; // FIXED: Changed variable name for clarity
 
 function movePlayer(deltaX) {
     if (CONFIG.isTransitioning) return;
@@ -271,8 +271,8 @@ function movePlayer(deltaX) {
     const minLeft = 10;
     const maxLeft = windowRect.width - playerRect.width - 10;
     
-    // Prevent moving past edges in section 10 if popups are active
-    if (CONFIG.currentSection === 9 && section10PopupsActive) {
+    // Prevent moving past edges in section 13 if popups are active
+    if (CONFIG.currentSection === 12 && section13PopupsActive) { // FIXED: Changed variable name
         if (newLeft < minLeft) newLeft = minLeft;
         if (newLeft > maxLeft) newLeft = maxLeft;
     } else {
@@ -368,32 +368,52 @@ function typewriterEffect(element, text, speed = 40) {
 }
 
 // ============================================
-// SECTION 10 POPUPS - NO STYLING IN JS
+// SECTION 13 POPUPS - TRIGGERED WHEN PLAYER REACHES END
 // ============================================
-function checkSection10Trigger() {
-    if (CONFIG.currentSection === 9 && !section10PopupsActive) {
+function checkSection13Trigger() {
+    // Check if we're in section 13 (index 12) and popups aren't active yet
+    if (CONFIG.currentSection === 12 && !section13PopupsActive) {
         const playerRect = CONFIG.playerCanvas.getBoundingClientRect();
         const windowRect = document.querySelector('.window-content').getBoundingClientRect();
-        const playerRight = parseInt(CONFIG.playerCanvas.style.left) + playerRect.width;
-        const triggerZone = windowRect.width - 30;
+        const playerLeft = parseInt(CONFIG.playerCanvas.style.left) || 100;
+        const playerRight = playerLeft + playerRect.width;
+        const triggerZone = windowRect.width - 100; // Trigger 100px from right edge
+        
+        // Debug logging
+        console.log(`Section 13 check - Player right: ${playerRight}, Trigger zone: ${triggerZone}, Window width: ${windowRect.width}`);
         
         if (playerRight >= triggerZone) {
-            console.log("Player reached end of section 10 - triggering popups!");
-            section10PopupsActive = true;
-            createSection10Popups();
+            console.log("Player reached end of section 13 - triggering popups!");
+            section13PopupsActive = true;
+            createSection13Popups();
         }
     }
 }
 
-function createSection10Popups() {
-    console.log("=== Creating 5 popups for section 10 ===");
+function createSection13Popups() {
+    console.log("=== Creating 5 popups for section 13 ===");
     
     const sizes = [
+        // Original 5
         {w: 300, h: 250},
         {w: 250, h: 200},
         {w: 350, h: 300},
         {w: 200, h: 180},
-        {w: 320, h: 280}
+        {w: 320, h: 280},
+        
+        // Additional smaller popups
+        {w: 280, h: 220},
+        {w: 220, h: 180},
+        {w: 180, h: 150},
+        {w: 260, h: 210},
+        {w: 190, h: 160},
+        
+        // Even smaller ones
+        {w: 150, h: 120},
+        {w: 170, h: 140},
+        {w: 140, h: 110},
+        {w: 160, h: 130},
+        {w: 130, h: 100}
     ];
     
     sizes.forEach((size, i) => {
@@ -405,7 +425,7 @@ function createSection10Popups() {
             
             // Create popup with only class, no inline styling
             const popup = document.createElement('div');
-            popup.className = 'section10-popup';
+            popup.className = 'section13-popup'; // Changed to match CSS
             
             // Grab bar
             const grabBar = document.createElement('div');
@@ -430,6 +450,13 @@ function createSection10Popups() {
             content.appendChild(img);
             popup.appendChild(grabBar);
             popup.appendChild(content);
+            
+            // Position the popup
+            popup.style.position = 'absolute';
+            popup.style.left = left + 'px';
+            popup.style.top = top + 'px';
+            popup.style.width = size.w + 'px';
+            popup.style.height = size.h + 'px';
             
             // Add to game window
             const windowContent = document.querySelector('.window-content');
