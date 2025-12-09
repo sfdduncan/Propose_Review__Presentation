@@ -162,32 +162,35 @@ function closeWindow() {
 function createGameSections() {
     CONFIG.gameWorld.innerHTML = '';
     CONFIG.sectionElements = [];
-    
+
     for (let i = 0; i < CONFIG.totalSections; i++) {
         const section = document.createElement('div');
         section.className = `game-section section-${i + 1}`;
         section.dataset.section = i;
-        
-        // Add video for section 2
-        if (i === 1) {
+
+        // ✅ SECTION 9 VIDEO
+        if (i === 8) {
             const video = document.createElement('video');
-            video.className = 'bg-video';
+            video.src = 'imgs/gameMockUp.mp4'; // update path
             video.autoplay = true;
-            video.muted = true;
             video.loop = true;
+            video.muted = true;
             video.playsInline = true;
-            
-            const source = document.createElement('source');
-            source.src = 'imgs/Dithered_video_final.mp4';
-            source.type = 'video/mp4';
-            video.appendChild(source);
+
+            video.style.width = '100%';
+            video.style.height = '100%';
+            video.style.objectFit = 'contain';
+            video.style.transform = 'translateX(-3vw)';
+
+
             section.appendChild(video);
         }
-        
+
         CONFIG.gameWorld.appendChild(section);
         CONFIG.sectionElements.push(section);
     }
 }
+
 
 // ============================================
 // PLAYER CONTROLS & ANIMATION

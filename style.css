@@ -16,7 +16,7 @@ html, body {
 #homepage {
     width: 100vw;
     height: 100vh;
-    background: url('imgs/WebsiteBackgroundStarterSCreen.png') center/cover no-repeat;
+    background: url('imgs/WebsiteBackgroundStarterSCreen_Final.png') center/cover no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -105,7 +105,8 @@ html, body {
 
 .window-titlebar {
     background: darkgray;
-    color: white;
+    border: 1px solid #404040;
+    color: rgb(18, 17, 17);
     padding: 5px 10px;
     display: flex;
     justify-content: space-between;
@@ -168,20 +169,20 @@ html, body {
 
 /* Section backgrounds */
 .section-1 { 
-    background-image: url('imgs/snow_mountain.jpeg');
+    background-image: url('imgs/empty_fieldclouds.jpeg');
 }
 
 .section-2 { 
-    /* Background image removed since we're using video */
-    background-image: none;
+    background-image: url('imgs/snow_mountain_AlaskaHeadlines.jpg');
 }
 
 .section-3 { 
-    background-image: url('imgs/empty_fieldclouds.jpeg');
+    background-image: url('imgs/newZealand_Headlines.jpg');
 }
 
 .section-4 { 
-    background-image: url('imgs/empty_fieldclouds.jpeg');
+    background-image: url('imgs/RecommendedReadings.jpg');
+    
 }
 
 .section-5 { 
@@ -189,11 +190,11 @@ html, body {
 }
 
 .section-6 { 
-    background-image: url('imgs/empty_fieldclouds.jpeg');
+    background-image: url('imgs/Malm_Background.jpg');
 }
 
 .section-7 {     
-    background-image: url('imgs/snow_mountain.jpeg');
+    background-image: url('imgs/Guacamaya.jpg');
 }
 
 .section-8 {
