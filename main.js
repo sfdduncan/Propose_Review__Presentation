@@ -129,11 +129,7 @@ function setupEventListeners() {
         CONFIG.keys[e.key] = false;
     });
     
-    // Main window controls
-    const windowControls = document.querySelectorAll('.window-control');
-    windowControls[0].addEventListener('click', () => alert('Minimized (simulated)'));
-    windowControls[1].addEventListener('click', toggleMaximize);
-    windowControls[2].addEventListener('click', closeWindow);
+
     
     // Window resize
     window.addEventListener('resize', () => {
@@ -142,18 +138,7 @@ function setupEventListeners() {
     });
 }
 
-function toggleMaximize() {
-    const window = document.querySelector('.windows-window');
-    window.style.width = window.style.width === '100%' ? '98%' : '100%';
-    window.style.height = window.style.height === '100vh' ? '80vh' : '100vh';
-}
 
-function closeWindow() {
-    if (confirm('Close game? This will reset your progress.')) {
-        document.getElementById('game-container').style.display = 'none';
-        window.location.reload();
-    }
-}
 
 // ============================================
 // GAME WORLD & SECTIONS
@@ -176,10 +161,9 @@ function createGameSections() {
             video.muted = true;
             video.playsInline = true;
 
-            video.style.width = '110%';
-            video.style.height = '100%';
+            video.style.width = '100%';
+            video.style.height = '110%';
             video.style.objectFit = 'contain';
-            video.style.transform = 'translateX(-11vw)';
 
 
             section.appendChild(video);
@@ -296,7 +280,7 @@ function movePlayer(deltaX) {
     if (CONFIG.isTransitioning) return;
     
     const playerRect = CONFIG.playerCanvas.getBoundingClientRect();
-    const windowRect = document.querySelector('.window-content').getBoundingClientRect();
+    const windowRect = document.getElementById('game-container').getBoundingClientRect();
     let newLeft = parseInt(CONFIG.playerCanvas.style.left) || 100;
     newLeft += deltaX;
     
@@ -342,7 +326,7 @@ function triggerSectionTransition(direction) {
     
     updateGameWorldPosition();
     
-    const windowRect = document.querySelector('.window-content').getBoundingClientRect();
+    const windowRect = document.getElementById('game-container').getBoundingClientRect();
     const playerRect = CONFIG.playerCanvas.getBoundingClientRect();
     
     if (direction > 0) {
@@ -376,7 +360,7 @@ function checkSection11Trigger() {
     // Check if we're in section 13 (index 12) and popups aren't active yet
     if (CONFIG.currentSection === 10 && !section11PopupsActive) {
         const playerRect = CONFIG.playerCanvas.getBoundingClientRect();
-        const windowRect = document.querySelector('.window-content').getBoundingClientRect();
+        const windowRect = document.getElementById('game-container').getBoundingClientRect();
         const playerLeft = parseInt(CONFIG.playerCanvas.style.left) || 100;
         const playerRight = playerLeft + playerRect.width;
         const triggerZone = windowRect.width - 100; // Trigger 100px from right edge
@@ -461,7 +445,7 @@ function createSection11Popups() {
             popup.style.height = size.h + 'px';
             
             // Add to game window
-            const windowContent = document.querySelector('.window-content');
+            const windowContent = document.getElementById('game-container');
             if (windowContent) {
                 windowContent.appendChild(popup);
             }

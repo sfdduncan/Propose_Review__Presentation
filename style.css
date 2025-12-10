@@ -54,19 +54,13 @@ html, body {
 
 /* ========== GAME CONTAINER ========== */
 #game-container {
-    width: 100%;
-    min-height: 100vh;
-    background: black;
-    padding: 30px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: fixed;
-    top: 5vh;
-    left: 8vw;
-    z-index: 50;
-    visibility: hidden;
-    opacity: 0;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: none; /* shown after START GAME */
+    background: #000;
 }
 
 /* Fade animations */
@@ -183,7 +177,6 @@ html, body {
 
 .section-4 { 
     background-image: url('imgs/RecommendedReadings.jpg');
-    background-size: 100% 125%;
 
 
 }
