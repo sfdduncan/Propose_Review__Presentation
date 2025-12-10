@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // GAME CONFIGURATION
 // ============================================
 const CONFIG = {
-    totalSections: 13,
+    totalSections: 11,
     playerSpeed: 4,
     sectionWidth: window.innerWidth,
     gameWorld: null,
@@ -109,7 +109,6 @@ function initializeGame() {
     createGameSections();
     
     // Show initial text box
-    showTextBox();
     
     console.log('Game initialized successfully');
 }
@@ -168,8 +167,8 @@ function createGameSections() {
         section.className = `game-section section-${i + 1}`;
         section.dataset.section = i;
 
-        // ✅ SECTION 9 VIDEO
-        if (i === 8) {
+        // SECTION 9 VIDEO
+        if (i === 7) {
             const video = document.createElement('video');
             video.src = 'imgs/gameMockUp.mp4'; // update path
             video.autoplay = true;
@@ -177,13 +176,21 @@ function createGameSections() {
             video.muted = true;
             video.playsInline = true;
 
-            video.style.width = '100%';
+            video.style.width = '110%';
             video.style.height = '100%';
             video.style.objectFit = 'contain';
-            video.style.transform = 'translateX(-3vw)';
+            video.style.transform = 'translateX(-11vw)';
 
 
             section.appendChild(video);
+        }
+
+        if (i === 8) {
+            const book = document.createElement('img');
+            book.src = 'imgs/bookMockUp.png';
+            book.className = 'floating-book';
+
+            section.appendChild(book);
         }
 
         CONFIG.gameWorld.appendChild(section);
@@ -193,13 +200,35 @@ function createGameSections() {
 
 
 // ============================================
+// FLOATING BOOK SCRIPT 
+// ============================================
+let bookFloatTime = 0;
+
+function animateFloatingBook() {
+    const book = document.querySelector(
+        `.section-10 .floating-book`
+    );
+    if (!book) return;
+
+    bookFloatTime += 0.02; // speed
+    const floatY = Math.sin(bookFloatTime) * 8; // height
+
+    book.style.transform = `
+        translate(-50%, ${floatY}px)
+    `;
+}
+
+
+
+// ============================================
 // PLAYER CONTROLS & ANIMATION
 // ============================================
 function startGameLoop() {
     function gameLoop() {
         updatePlayer();
         drawPlayer();
-        checkSection13Trigger(); // FIXED: Changed from checkSection10Trigger
+        animateFloatingBook();
+        checkSection11Trigger(); // FIXED: Changed from checkSection10Trigger
         requestAnimationFrame(gameLoop);
     }
     gameLoop();
@@ -261,7 +290,7 @@ function drawPlayer() {
 // ============================================
 // PLAYER MOVEMENT & SECTION TRANSITION
 // ============================================
-let section13PopupsActive = false; // FIXED: Changed variable name for clarity
+let section11PopupsActive = false; // FIXED: Changed variable name for clarity
 
 function movePlayer(deltaX) {
     if (CONFIG.isTransitioning) return;
@@ -274,8 +303,8 @@ function movePlayer(deltaX) {
     const minLeft = 10;
     const maxLeft = windowRect.width - playerRect.width - 10;
     
-    // Prevent moving past edges in section 13 if popups are active
-    if (CONFIG.currentSection === 12 && section13PopupsActive) { // FIXED: Changed variable name
+    // Prevent moving past edges in section 11 if popups are active
+    if (CONFIG.currentSection === 10 && section11PopupsActive) { // FIXED: Changed variable name
         if (newLeft < minLeft) newLeft = minLeft;
         if (newLeft > maxLeft) newLeft = maxLeft;
     } else {
@@ -338,44 +367,14 @@ function updateGameWorldPosition() {
 // ============================================
 // TEXT BOX & TYPING EFFECT
 // ============================================
-function showTextBox() {
-    const textBox = document.getElementById('text-box-section1');
-    const boxText = document.getElementById('box-text');
-    
-    if (textBox && boxText) {
-        textBox.style.display = 'block';
-        
-        const message = `My project explores how subversive computational practices such as hacking, data poisoning, and glitch-based resistance can challenge extractive predictive systems and offer ways to protect agency in a world increasingly shaped by demands for computability.`;
-        
-        typewriterEffect(boxText, message, 40);
-    }
-}
 
-function typewriterEffect(element, text, speed = 40) {
-    let i = 0;
-    element.innerHTML = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.innerHTML = text.substring(0, i + 1);
-            i++;
-            setTimeout(type, speed);
-        } else {
-            const cursor = document.createElement('span');
-            cursor.className = 'typewriter-cursor';
-            element.appendChild(cursor);
-        }
-    }
-    
-    type();
-}
 
 // ============================================
 // SECTION 13 POPUPS - TRIGGERED WHEN PLAYER REACHES END
 // ============================================
-function checkSection13Trigger() {
+function checkSection11Trigger() {
     // Check if we're in section 13 (index 12) and popups aren't active yet
-    if (CONFIG.currentSection === 12 && !section13PopupsActive) {
+    if (CONFIG.currentSection === 10 && !section11PopupsActive) {
         const playerRect = CONFIG.playerCanvas.getBoundingClientRect();
         const windowRect = document.querySelector('.window-content').getBoundingClientRect();
         const playerLeft = parseInt(CONFIG.playerCanvas.style.left) || 100;
@@ -383,17 +382,17 @@ function checkSection13Trigger() {
         const triggerZone = windowRect.width - 100; // Trigger 100px from right edge
         
         // Debug logging
-        console.log(`Section 13 check - Player right: ${playerRight}, Trigger zone: ${triggerZone}, Window width: ${windowRect.width}`);
+        console.log(`Section 12 check - Player right: ${playerRight}, Trigger zone: ${triggerZone}, Window width: ${windowRect.width}`);
         
         if (playerRight >= triggerZone) {
-            console.log("Player reached end of section 13 - triggering popups!");
-            section13PopupsActive = true;
-            createSection13Popups();
+            console.log("Player reached end of section 11 - triggering popups!");
+            section11PopupsActive = true;
+            createSection11Popups();
         }
     }
 }
 
-function createSection13Popups() {
+function createSection11Popups() {
     console.log("=== Creating 5 popups for section 13 ===");
     
     const sizes = [
@@ -428,7 +427,7 @@ function createSection13Popups() {
             
             // Create popup with only class, no inline styling
             const popup = document.createElement('div');
-            popup.className = 'section13-popup'; // Changed to match CSS
+            popup.className = 'section11-popup'; // Changed to match CSS
             
             // Grab bar
             const grabBar = document.createElement('div');
