@@ -164,55 +164,61 @@ html, body {
 
 /* Section backgrounds */
 .section-1 { 
-    background-image: url('imgs/starter_Sentence.jpg');
+    background-image: url('imgs/snow_mountain.jpeg');
 }
 
+
+/* Section backgrounds */
 .section-2 { 
-    background-image: url('imgs/snow_mountain_AlaskaHeadlines.jpg');
+    background-image: url('imgs/starter_Sentence.jpg');
+    background-color: #379ED9;
 }
 
 .section-3 { 
-    background-image: url('imgs/newZealand_Headlines.jpg');
+    background-image: url('imgs/snow_mountain_AlaskaHeadlines.jpg');
 }
 
 .section-4 { 
+    background-image: url('imgs/newZealand_Headlines.jpg');
+    background-size: 100% 100%;
+    background-color: #379ED9;
+}
+
+
+.section-5 { 
+    background-image: url('imgs/AI_Boards_Guidelines.jpg');
+    background-size: 100% 100%;
+    background-color: #379ED9;
+}
+
+.section-6 { 
     background-image: url('imgs/RecommendedReadings.jpg');
 
 
 }
 
-.section-5 { 
-    background-image: url('imgs/AI_Boards_Guidelines.jpg');
-}
-
-.section-6 { 
+.section-7 { 
     background-image: url('imgs/Malm_Background.jpg');
 }
 
-.section-7 {     
+.section-8 {     
     background-image: url('imgs/Guacamaya.jpg');
 }
 
-
-.section-8 { 
-    background-image: url('imgs/empty_fieldclouds.jpeg');
-}
 
 .section-9 { 
     background-image: url('imgs/empty_fieldclouds.jpeg');
 }
 
+
 .section-10 { 
     background-image: url('imgs/Screenshot\ 2025-12-08\ 224521.png');
-    background-size: 80% 100%;
-    background-position: 8% center;
 }
 
 .section-11 { 
     background-image: url("imgs/red_city.png");
-    background-size: contain;
+    background-size: cover;
     background-position: center 1%;
-    background-repeat: repeat;
     background-color: #000; /* Ensure black background around the image */
 }
 
@@ -230,10 +236,10 @@ html, body {
 /* ========== PLAYER ========== */
 #player-canvas {
     position: absolute;
-    bottom: 78px;
+    bottom: 9.8vh;
     left: 100px;
-    width: 128px;
-    height: 128px;
+    width: 9vw;
+    height: 13vh;
     z-index: 10;
 }
 
@@ -321,7 +327,8 @@ html, body {
 
 .floating-book {
     position: absolute;
-    left: 43%;
+    left: 50%;
+    top: 20vh;
 
     width: 90vw;   /* SCALE HERE */
     height: auto;

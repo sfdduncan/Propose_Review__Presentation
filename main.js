@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============================================
 const CONFIG = {
     totalSections: 11,
-    playerSpeed: 4,
+    playerSpeed: 6,
     sectionWidth: window.innerWidth,
     gameWorld: null,
     playerCanvas: null,
@@ -162,8 +162,8 @@ function createGameSections() {
             video.playsInline = true;
 
             video.style.width = '100%';
-            video.style.height = '110%';
-            video.style.objectFit = 'contain';
+            video.style.height = '100%';
+            video.style.objectFit = 'cover';
 
 
             section.appendChild(video);
@@ -190,7 +190,7 @@ let bookFloatTime = 0;
 
 function animateFloatingBook() {
     const book = document.querySelector(
-        `.section-10 .floating-book`
+        `.section-11 .floating-book`
     );
     if (!book) return;
 
@@ -198,7 +198,7 @@ function animateFloatingBook() {
     const floatY = Math.sin(bookFloatTime) * 8; // height
 
     book.style.transform = `
-        translate(-50%, ${floatY}px)
+        translate(-80%, ${floatY}px)
     `;
 }
 
@@ -369,7 +369,7 @@ function checkSection11Trigger() {
         console.log(`Section 12 check - Player right: ${playerRight}, Trigger zone: ${triggerZone}, Window width: ${windowRect.width}`);
         
         if (playerRight >= triggerZone) {
-            console.log("Player reached end of section 11 - triggering popups!");
+            console.log("Player reached end of section 12 - triggering popups!");
             section11PopupsActive = true;
             createSection11Popups();
         }
