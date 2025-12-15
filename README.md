@@ -1,6 +1,6 @@
 # How to Crash an Oppressive Algorithm
 
-## Provocation
+## My Overall Provocation
 
 Algorithmic harm cannot be resolved through better data or reform alone; when AI systems are built on extractive, Western epistemologies, refusal and disruption become necessary practices for Indigenous data sovereignty.
 
