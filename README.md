@@ -72,14 +72,14 @@ Articulates hacking as a political practice, influencing the project’s framing
 
 Explores failure and disruption as liberatory strategies, informing the project’s embrace of glitch, misuse, and breakdown.
 
-- **Decolonising Machine Vision: Algorithmic Anxieties and Epistemic Violence.**  
+- **Downey, Anthony. *Decolonising Machine Vision: Algorithmic Anxieties and Epistemic Violence*.**  
  
 Examines how machine vision enacts epistemic harm, grounding the project’s critique of visual and classificatory AI systems.
 
-- **Coding Freedom: The Ethics and Aesthetics of Hacking.**  
+- **Coleman, Gabriella. *Coding Freedom: The Ethics and Aesthetics of Hacking*.**  
   
 Explores hacking as an ethical and cultural practice rather than a purely technical one.
 
-- **Excavating AI: The Politics of Images in Machine Learning Training Sets.**  
+- **Crawford, Kate & Paglen, Trevor. *Excavating AI: The Politics of Images in Machine Learning Training Sets*.**  
  
 Analyzes the politics of training data, directly informing the project’s focus on data extractivism and classification.
