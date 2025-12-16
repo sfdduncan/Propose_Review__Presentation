@@ -8,7 +8,7 @@ Algorithmic harm cannot be resolved through better data or reform alone; when AI
 
 ## Project Description
 
-*How to Crash an Oppressive Algorithm* is a critical, pedagogical project that examines how AI systems extract knowledge, govern life, and reproduce colonial power structures under the guise of neutrality and efficiency. As predictive models, computer vision systems, and large language models increasingly shape policy decisions and material conditions, Indigenous lands, languages, and ways of knowing are rendered legible within systems that were never designed to hold them. This project argues that inclusion within such systems often deepens dispossession rather than addressing harm.
+*How to Crash an Oppressive Algorithm* is a critical, pedagogical project that examines how AI systems extract knowledge, govern life, and reproduce colonial power structures under the guise of neutrality and efficiency. As predictive models, computer vision systems, and large language models increasingly shape policy decisions and living conditions, Indigenous lands, languages, and ways of knowing are rendered legible within systems that were never designed to hold them (their multitudinous). My work argues that inclusion within such systems often deepens dispossession rather than addressing harm.
 
 My project operates across three interrelated components: a series of browser-based games, a conceptual booklet, and an open-source archive. Together, these elements teach how extractive AI systems function and how they might be challenged, disrupted, or refused. Rather than proposing technical fixes or optimization strategies, my work centers hacktivism as an ethical and collective practice of resistance, oriented towards Indigenous data sovereignty, autonomy, and liberation from extractive algorithmic infrastructures.
 
@@ -16,11 +16,11 @@ My project operates across three interrelated components: a series of browser-ba
 
 ## Computational Methods
 
-The browser-based games are designed not only to teach participants about data extractivism, but to place them directly inside the act of hacking the systems that sustain it. In response to feedback given at the review, my project moves beyond a purely pedagogical simulation by requiring players to actively intervene in and produce hacks within the game environment, rather than simply observing or learning about algorithmic processes.
+My computational approach centers on game design and hacking as both a literal practice and a framework for Indigenous data liberation. The goal is to make hacking approachable, reframing it as a set of skills and tactics for intervening in extractive computational systems rather than a domain reserved for technical experts.
 
-This project uses computational methods not to optimize or improve AI systems, but to expose their assumptions, vulnerabilities, and political consequences through game design and speculative hacking practices. The browser-based games simulate algorithmic processes such as data training, classification, and prediction, while allowing players to actively produce hacks within the system. These hacks take the form of disruptive in-game interventions, including popup worms that replicate and obstruct interfaces, glitching data clouds that contaminate training sets, and cascading errors that propagate through algorithmic pipelines.
+The browser-based games are designed not only to teach participants about data extractivism, but to place them directly inside the act of disrupting the systems that sustain it. Responding to feedback from the review, the project moves beyond pedagogical simulation by requiring players to actively intervene in and produce hacks within the game environment, rather than merely observing algorithmic processes. 
 
-The archive component operates as an open-source computational infrastructure, organizing tools, texts, and practices related to hacktivism and refusal. Rather than privileging those with high technical skills, the computational workflows emphasize misuse, failure, and opacity as pedagogical affordances. Computation here becomes a site of learning and resistance, demonstrating how algorithmic systems can be confronted rather than refined.
+The archive component functions as an open-source repository designed to teach participants and provide them with tools to become more fully engaged with hacking and hacktivism. It organizes techniques, texts, and practices around intervention, lowering the barrier to entry for those without formal technical training. Rather than privileging mastery or efficiency, the workflows emphasize experimentation, failure, and opacity as pedagogical strategies, positioning it as a site of learning and resistance.
 
 ---
 
@@ -36,7 +36,7 @@ The booklet functions as a conceptual guide, situating algorithmic systems withi
 
 ### Molleindustria (Inspo for Games as a Pedagogical/Interactive Approach)
 
-Molleindustria’s body of work demonstrates how games can function as critical and educational tools rather than entertainment alone. Their projects expose political and economic systems through mechanics that encourage reflection and critique. This project builds on Molleindustria’s pedagogical approach by using gameplay to make algorithmic power legible, while extending it toward questions of Indigenous data sovereignty and refusal rather than critique alone.
+Molleindustria’s body of work demonstrates how games can function as critical and educational tools rather than entertainment alone. Their projects expose political and economic systems through mechanics that encourage reflection and critique. This project builds on Molleindustria’s approach by using gameplay to make algorithmic power legible, while extending it toward questions of Indigenous data sovereignty and refusal.
 
 ### Sam Lavigne & Tega Brain – *How to Get to Zero* (Inspo for Multimedia approach)
 
