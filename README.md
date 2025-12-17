@@ -38,7 +38,7 @@ The booklet functions as a conceptual guide, situating algorithmic systems withi
 
 Molleindustria’s body of work demonstrates how games can function as critical and educational tools rather than entertainment alone. Their projects expose political and economic systems through mechanics that encourage reflection and critique. This project builds on Molleindustria’s approach by using gameplay to make algorithmic power legible, while extending it toward questions of Indigenous data sovereignty and refusal.
 
-### Sam Lavigne & Tega Brain – *How to Get to Zero* (Inspo for Multimedia approach)
+### Sam Lavigne & Tega Brain *How to Get to Zero* (Inspo for Multimedia approach)
 
 *How to Get to Zero* is important to this project because it shows how interactive and multimedia formats can make complex political and environmental issues more engaging and approachable. By combining text, data, and interactive elements, the project invites people to explore extractive systems in a way that feels participatory rather than instructional. I am drawn to this work not only for its critical perspective, but because it is genuinely fun to interact with.
 
